@@ -4,7 +4,6 @@ preInstall () {
     sudo pacman reflector git
     reflector -c Switzerland --sort rate -a 6 --save /etc/pacman.d/mirrorlist
 }
-
 yayInstall () {
     cd /opt
     sudo git clone https://aur.archlinux.org/yay-git.git
@@ -23,6 +22,9 @@ changeBootscreen () {
 changeGreeter () {
     sudo systemctl disable sddm
     sudo systemctl enable light-dm
+}
+configInstall () {
+
 }
 run () {
     preInstall

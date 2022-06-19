@@ -12,6 +12,7 @@ Install configs
     recompile dmenu
     set lxapearanc                  manual
     set plasma account              manual
+Install binaries
 Change bootscreen                   x
 Disable SDDM && enable lighdm       x
 
