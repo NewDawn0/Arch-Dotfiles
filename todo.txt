@@ -1,0 +1,17 @@
+//TODO
+Install yay                         x
+Install packages                    x
+Install configs
+    .config folder
+    Wallpapers
+    CustomScripts
+    /etc/lightdm set greeter
+    /etc/vconsole.conf set keys
+    change greeter background       manual
+    recompile st
+    recompile dmenu
+    set lxapearanc                  manual
+    set plasma account              manual
+Change bootscreen                   x
+Disable SDDM && enable lighdm       x
+

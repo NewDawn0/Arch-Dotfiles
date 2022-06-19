@@ -1,0 +1,31 @@
+#!/bin/sh
+args=$*
+noargs () {
+	choice=$(du -a | \
+	awk '{print $2}' | \
+	dmenu -i -l 20 -p "Search file: ")
+	if [ "$choice" ]; then
+		printf '%s\n' "$(pwd)/${choice:2}"
+	fi
+}
+hidden () {
+	choice=$(find . -path '.*' -ls | \
+	awk '{print $11}' | \
+	cut -c2- | \
+	cut -c2- | \
+	dmenu -l 20 -i -p "Search files: ")
+	if [ "$choice" ]; then
+		printf '%s\n' "$(pwd)/${choice}"
+	fi
+}
+main () {
+	if [ "$args" ]; then
+		if echo $args | grep 'h' > /dev/null; then
+			hidden
+		fi
+	else
+		noargs
+	fi
+}
+
+main
