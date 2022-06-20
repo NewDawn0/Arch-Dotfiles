@@ -117,13 +117,25 @@ vimInstall () {
     mkdir -p ~/.vim
     cp -R colors ~/.vim
 }
+shellinstall () {
+    chsh
+    cp .bashrc ~/
+    cp .zshrc ~/
+    mkdir -p ~/zsh/plugins
+    cd ~/zsh/plugins
+    git clone https://github.com/sindresorhus/pure.git
+    git clone https://github.com/hlissner/zsh-autopair.git
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+}
 run () {
-    vimInstall
     preInstall
     yayInstall
     pacInstall
+    shellinstall
+    vimInstall
     configInstall
     gitHubInstalls
     changeBootscreen
     changeGreeter
 }
+run
