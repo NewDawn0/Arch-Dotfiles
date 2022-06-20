@@ -127,6 +127,9 @@ shellinstall () {
     git clone https://github.com/hlissner/zsh-autopair.git
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 }
+postInstall () {
+    pacin lightdm-gtk-greeter lightdm-webkit2-greeter lightdm-webkit-theme-aether
+}
 run () {
     preInstall
     yayInstall
@@ -136,6 +139,7 @@ run () {
     configInstall
     gitHubInstalls
     changeBootscreen
+    postInstall
     changeGreeter
 }
 run

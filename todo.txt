@@ -1,21 +1,5 @@
-//TODO
-Install yay                         x
-Install packages                    x
-Install configs
-    .config folder                  x
-    Wallpapers                      x
-    ndos                            x
-    CustomScripts                   x
-    disable wallet                  x
-    /etc/vconsole.conf              x
-    /etc/lightdm set greeter        - ==> not needed
-    change greeter background       o ==> manual
-    recompile st                    x
-    recompile dmenu                 x
-    set lxapearanc                  o ==> manual
-    set plasma account              o ==> manual
-Install GitHub repos                x
-Install binaries                    x
-Change bootscreen                   x
-Disable SDDM && enable lighdm       x
-
+Arunati font
+Liga SF mono font
+set fonts
+set profile
+change lightm picture
