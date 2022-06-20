@@ -112,7 +112,13 @@ gitHubInstalls () {
     wordleSolverInstall
     createInstall
 }
+vimInstall () {
+    cp .vimrc ~/
+    mkdir -p ~/.vim
+    cp -R colors ~/.vim
+}
 run () {
+    vimInstall
     preInstall
     yayInstall
     pacInstall
