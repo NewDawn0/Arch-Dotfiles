@@ -1,0 +1,99 @@
+#!/bin/bash
+# ===> Constants & Global Variables
+# Colours
+blue='\e[0;34m'
+cyan='\e[0;36m'
+noCol='\e[0m'
+purple='\e[0;35m'
+
+# ===> Functions
+# <Function description>
+layouts () {
+    printf "
+    ${blue}-- BSPWM Layouts --
+    ${cyan}->  tall
+        ${purple}Master-Stack with a tall window${noCol}
+        _______________
+        |        |____|
+        |        |____|
+        |        |____|
+        |________|____|
+
+    ${cyan}->  rtall
+        ${purple}Master-Stack with a reversed tall window${noCol}
+        _______________
+        |____|        |
+        |____|        |
+        |____|        |
+        |____|________|
+
+    ${cyan}->  wide
+        ${purple}Master-Stack with a wide window${noCol}
+        _______________
+        |             |
+        |             |
+        |_____________|
+        |____|____|___|
+
+    ${cyan}->  rwide
+        ${purple}Master-Stack with a reversed wide window${noCol}
+        _______________
+        |____|____|___|
+        |             |
+        |             |
+        |_____________|
+
+    ${cyan}->  grid
+        ${purple}Horizontal grid layout${noCol}
+        _____________
+        |   |   |   |
+        |___|___|___|
+        |   |   |   |
+        |___|___|___|
+
+    ${cyan}->  rgrid
+        ${purple}Vertical grid layout${noCol}
+        _____________
+        |_____|_____|
+        |_____|_____|
+        |_____|_____|
+
+    ${cyan}->  even
+        ${purple}Evenly balances all window areas${noCol}
+        _______________
+        |___|____|____|
+        |___|____|____|
+        |___|____|____|
+
+        OR
+        _______________
+        |    |        |
+        |    |________|
+        |    |        |
+        |____|________|
+
+    ${cyan}->  tiled
+        ${purple}Default BSPWM's tiled layout${noCol}
+        _______________
+        |        |    |
+        |        |____|
+        |        |  | |
+        |________|__|_|
+
+    ${cyan}->  monocle
+        ${purple}Default BSPWM's monocle layout${noCol}
+        _______________
+        |             |
+        |             |
+        |             |
+        |_____________|"
+    echo ""
+}
+
+# ===> Main Function
+# <main -> <your description>
+main() {
+    layouts
+    read quit
+}
+main

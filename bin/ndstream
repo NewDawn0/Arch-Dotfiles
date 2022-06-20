@@ -1,0 +1,63 @@
+#!/bin/bash
+
+#   /////////////////
+#   //  © NewDawn0 //
+#   /////////////////
+
+#get configs
+source $HOME/.ndos/ndstream/ndstream.config
+player=$mediaPlayer
+url=$url
+path=$path
+subtitles=$subtitles
+
+#input
+query=$(printf '%s' "${@: -1}" | tr ' ' '+')
+allArgs=${#}
+
+#main
+if [ $allArgs -lt 1 ]; then
+    echo $allArgs
+    echo "<---------------------------------------------------------------->"
+    echo ""
+    echo "ndstream (NewDawn0 Stream)"
+    echo "A cli tool to stream movies and shows using torrent"
+    echo ""
+    echo "<---------------------------------------------------------------->"
+    echo ""
+    echo "Syntax:"
+    echo "ndstream <args>"
+    echo ""
+    echo "Examples"
+    echo    "To stream something:"
+    echo        "ndstream \"<Your movie title>\""
+    echo    "To download something:"
+    echo        "ndstream -d \"<Your movie title>\""
+    echo    "This will create a new folder in the"
+    echo    "directory specified in the config file"
+    echo ""
+    echo "<---------------------------------------------------------------->"
+    echo ""
+    echo "Configs"
+    echo    "(the config file btw)"
+    echo        "|"
+    echo        "|"
+    echo        "V"
+    cat ~/.ndos/ndstream/ndstream.config
+    echo ""
+    echo ""
+    echo "<---------------------------------------------------------------->"
+else
+    search=$(curl -s https://$url/search/$query/1/ | grep -Eo "torrent\/[0-9]{7}\/[a-zA-Z0-9?%-]*/" | head -n 1)
+    magnet=$(curl -s https://$url/$search | grep -Eo "magnet:\?xt=urn:btih:[a-zA-Z0-9]*" | uniq | head -n 1)
+    if [ $allArgs -gt 1 ]; then
+        arg=$1
+        if [[ $arg == "-d" ]]; then
+            cd $path
+            webtorrent "$magnet"
+            echo "Download of ${@: -1} done!" | terminal-notifier
+        fi;
+    else
+        webtorrent "$magnet" --$player
+    fi;
+fi;

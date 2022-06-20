@@ -1,0 +1,24 @@
+// ===> Package name
+namespace <YourNamespace>
+
+// ===> Imports & Libraries
+using System;
+
+
+// ===> Constants & Global Variables
+// <Variable description>
+
+
+
+// ===> Functions & Classes
+// <Function description>
+
+
+
+// ===> Main Function
+// <main -> <your description>
+public class Main {
+    public static void Main() {
+        // <your code>
+
+}

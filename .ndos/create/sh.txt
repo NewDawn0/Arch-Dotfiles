@@ -1,0 +1,18 @@
+#!/bin/bash
+# ===> Constants & Global Variables
+# <Variable description>
+
+
+
+# ===> Functions
+# <Function description>
+
+
+
+# ===> Main Function
+# <main -> <your description>
+main() {
+    # <your code>
+
+
+}

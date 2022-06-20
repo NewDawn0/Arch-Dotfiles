@@ -2,17 +2,20 @@
 Install yay                         x
 Install packages                    x
 Install configs
-    .config folder
-    Wallpapers
-    CustomScripts
-    /etc/lightdm set greeter
-    /etc/vconsole.conf set keys
-    change greeter background       manual
-    recompile st
-    recompile dmenu
-    set lxapearanc                  manual
-    set plasma account              manual
-Install binaries
+    .config folder                  x
+    Wallpapers                      x
+    ndos                            x
+    CustomScripts                   x
+    disable wallet                  x
+    /etc/vconsole.conf              x
+    /etc/lightdm set greeter        - ==> not needed
+    change greeter background       o ==> manual
+    recompile st                    x
+    recompile dmenu                 x
+    set lxapearanc                  o ==> manual
+    set plasma account              o ==> manual
+Install GitHub repos                x
+Install binaries                    x
 Change bootscreen                   x
 Disable SDDM && enable lighdm       x
 

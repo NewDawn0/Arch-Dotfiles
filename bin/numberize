@@ -1,0 +1,35 @@
+#!/bin/bash
+if [ -p /dev/stdin ]; then
+    # scientific notation from pipe
+    if [[ $1 == '-s' ]]; then
+        while IFS= read line; do
+            comma="${line:0:1}.${line:1}"
+            pow=$(echo $line | wc -c)
+            pow=$((pow-2))
+            echo "$comma*e$pow"
+        done
+    else
+    # normal notation from pipe
+        while IFS= read line; do
+            substings=$(echo "$line" | rev | fold -w 3)
+            folded=$(echo $substings | rev)
+            word=$(for sting in $folded; do printf "$sting'"; done)
+            echo $word | sed 's/.$//'
+        done
+    fi
+else
+    # scientific notation from io
+    if [[ $1 == '-s' ]]; then
+        input=$2
+        comma="${input:0:1}.${input:1}"
+        pow=$(echo $input | wc -c)
+        pow=$((pow-2))
+        echo "$comma*e$pow"
+    else
+    # normal notation from io
+        substings=$(echo "$1" | rev | fold -w 3)
+        folded=$(echo $substings | rev)
+        word=$(for sting in $folded; do printf "$sting'"; done)
+        echo $word | sed 's/.$//'
+    fi
+fi

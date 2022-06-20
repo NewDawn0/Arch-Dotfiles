@@ -1,0 +1,12 @@
+#!/bin/sh
+args=$1
+argWeatherfull="-f"
+location=$*
+if [ "$args" == "$argWeatherfull" ]; then
+  location=${@:2}
+  location="$(tr '[:lower:]' '[:upper:]' <<< ${location:0:1})${location:1}"
+  echo "Weather in $location" "$(curl -s wttr.in/$location $location\?format=1)"
+else
+  location="$(tr '[:lower:]' '[:upper:]' <<< ${location:0:1})${location:1}"
+  echo "Weather in $location" "$(curl -s wttr.in/$location\?format=1)"
+fi

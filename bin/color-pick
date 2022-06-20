@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+main() {
+
+    HEX_COLOR=$(gpick -pso --no-newline)
+    COLOR_CODE="$HEX_COLOR"
+    printf "$COLOR_CODE" | xclip -selection c
+}
+
+main

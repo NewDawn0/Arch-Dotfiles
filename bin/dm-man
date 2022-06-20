@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+main () {
+  local _options=( "Search manpages" "Random manpage" "Quit" )
+  choose=$(printf '%s\n' "${_options[@]}" | dmenu -i -l 4 -p 'Manpages:' "$@")
+  case "$choose" in
+    'Search manpages')
+      choice=$(find /usr/share/man -type f | \
+      awk -F '/' '{print $NF}' | \
+      awk -F '.' '{print $1}' | sort | uniq | \
+      dmenu -i -l 20 -p 'Search Manpage')
+      alacritty -e man $choice
+    ;;
+    'Random manpage')
+      man=$(find /usr/share/man -type f | \
+      awk -F '/' '{print $NF}' | \
+      awk -F '.' '{print $1}' | sort | uniq | shuf | head -n 1)
+      alacritty -e man $man
+    ;;
+    'Quit')
+      echo "Exiting..." && exit 0
+    ;;
+  esac
+}
+main

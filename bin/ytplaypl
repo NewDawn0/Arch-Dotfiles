@@ -1,0 +1,144 @@
+#!/bin/sh
+NAME="ytplaypl"
+VERSION="0.0.3"
+args=$1
+allArgs=$*
+argAud="-na"
+argVid="-nv"
+argHelp="-h"
+argHelps="--help"
+argAirpl="-d"
+argDeps="--dep"
+argAirVid="-nvd"
+device=$2
+tmpCurrentDevice=$(SwitchAudioSource -c)
+currentDevice=$tmpCurrentDevice
+
+help () {
+  while IFS= read -r line; do
+		printf "%s\n" "$line"
+	done <<-EOF
+	Options:
+	  -na      for no audio
+  	   ytplay -na <your video title>
+
+	  -nv      for no video
+  	   ytplay -nv <your video title>
+    
+	  -d       to play over airplay
+  	   ytplay -d "<your device name>" <your video title>
+
+	  -nvd     to play over airplay without video
+  	   ytplay -na "<your device name>" <your video title>
+
+	  -h       to open the hep menue (this window)
+  	   ytplay -h
+
+	  --help   to open the hep menue (this window)
+  	   ytplay --help
+    
+	  --dep   to list the dependencies, version and name
+  	   ytplay --dep
+	EOF
+}
+
+dependencies () {
+  echo $NAME
+  echo $VERSION
+  echo ""
+  while IFS= read -r line; do
+		printf "%s\n" "$line"
+	done <<-EOF
+	Dependencies:
+	  - MacOs
+
+	  - brew   (Homebrew)
+  	   Installation: guide on https://brew.sh
+    
+	  - switchaudio-osx
+  	   brew install switchaudio-osx
+	EOF
+}
+ 
+if [ "$args" == "$argHelp" ] || [ "$args" == "$argHelps" ]; then
+  help
+elif [ "$args" == "$argDeps" ]; then
+  dependencies
+elif [ "$args" == "$argAud" ]; then
+  allArgs=$(echo "${@:2}")
+  query="$allArgs"
+  query=$(echo $query | tr ' ' '+')
+  mpv --no-audio "https://youtube.com/playlist?$(curl -s "https://vid.puffyan.us/search?q=$query+playlist" | grep -Eo "list=.{34}" | head -n 1)"
+elif [ "$args" == "$argVid" ]; then
+  allArgs=$(echo "${@:2}")
+  query="$allArgs"
+  query=$(echo $query | tr ' ' '+')
+  mpv --no-video "https://youtube.com/playlist?$(curl -s "https://vid.puffyan.us/search?q=$query+playlist" | grep -Eo "list=.{34}" | head -n 1)"
+  echo $vidlink
+elif [ "$args" == "$argAirpl" ]; then
+  osascript -e 'tell application "System Preferences"
+    reveal anchor "output" of pane id "com.apple.preference.sound"
+  end tell
+
+  tell application "System Events" to tell process "System Preferences"
+    repeat until exists tab group 1 of window "Sound"
+      delay 0.1
+    end repeat
+    tell table 1 of scroll area 1 of tab group 1 of window 1
+      select (row 1 where value of text field 1 is "'"$device"'")
+    end tell
+  end tell
+  quit application "System Preferences"'
+  allArgs=$(echo "${@:3}")
+  query="$allArgs"
+  query=$(echo $query | tr ' ' '+')
+  mpv "https://youtube.com/playlist?$(curl -s "https://vid.puffyan.us/search?q=$query+playlist" | grep -Eo "list=.{34}" | head -n 1)"
+  osascript -e 'tell application "System Preferences"
+    reveal anchor "output" of pane id "com.apple.preference.sound"
+  end tell
+
+  tell application "System Events" to tell process "System Preferences"
+    repeat until exists tab group 1 of window "Sound"
+      delay 0.1
+    end repeat
+    tell table 1 of scroll area 1 of tab group 1 of window 1
+      select (row 1 where value of text field 1 is "'"$currentDevice"'")
+    end tell
+  end tell
+  quit application "System Preferences"'
+elif [ "$args" == "$argAirVid" ]; then
+  osascript -e 'tell application "System Preferences"
+    reveal anchor "output" of pane id "com.apple.preference.sound"
+  end tell
+
+  tell application "System Events" to tell process "System Preferences"
+    repeat until exists tab group 1 of window "Sound"
+      delay 0.1
+    end repeat
+    tell table 1 of scroll area 1 of tab group 1 of window 1
+      select (row 1 where value of text field 1 is "'"$device"'")
+    end tell
+  end tell
+  quit application "System Preferences"'
+  allArgs=$(echo "${@:3}")
+  query="$allArgs"
+  query=$(echo $query | tr ' ' '+')
+  mpv --no-video "https://youtube.com/playlist?$(curl -s "https://vid.puffyan.us/search?q=$query+playlist" | grep -Eo "list=.{34}" | head -n 1)"
+  osascript -e 'tell application "System Preferences"
+    reveal anchor "output" of pane id "com.apple.preference.sound"
+  end tell
+
+  tell application "System Events" to tell process "System Preferences"
+    repeat until exists tab group 1 of window "Sound"
+      delay 0.1
+    end repeat
+    tell table 1 of scroll area 1 of tab group 1 of window 1
+      select (row 1 where value of text field 1 is "'"$currentDevice"'")
+    end tell
+  end tell
+  quit application "System Preferences"'
+else
+  query="$allArgs"
+  query=$(echo $query | tr ' ' '+')
+  mpv "https://youtube.com/playlist?$(curl -s "https://vid.puffyan.us/search?q=$query+playlist" | grep -Eo "list=.{34}" | head -n 1)"
+fi

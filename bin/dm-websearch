@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#
+# Script name: dm-websearch
+# Description: Search various search engines (inspired by surfraw).
+# Dependencies: dmenu and brave
+# GitLab: https://www.gitlab.com/dwt1/dmscripts
+# License: https://www.gitlab.com/dwt1/dmscripts/LICENSE
+# Contributors: Derek Taylor
+#               Ali Furkan Yıldız
+#               HostGrady
+#               Simon Ingelsson
+#               Tom Suter
+
+# Set with the flags "-e", "-u","-o pipefail" cause the script to fail
+# if certain things happen, which is a good thing.  Otherwise, we can
+# get hidden bugs that are hard to discover.
+set -euo pipefail
+
+# script will not hit this if there is no config-file to load
+# shellcheck disable=SC1090
+source "/home/dawn/CustomScripts/configs/config"
+
+main() {
+  # As this is loaded from other file it is technically not defined
+  # shellcheck disable=SC2154 # Choosing  a search engine by name from array above.
+  engine=$(printf '%s\n' "${!websearch[@]}" | sort | ${DMENU} 'Choose search engine:' "$@") || exit 1
+
+  # Getting the URL of the search engine we chose.
+  url="${websearch["${engine}"]}"
+
+  # Searching the chosen engine.
+  query=$(echo "$engine" | dmenu -i -p 'Enter search query:')
+
+  query="$(echo -n "${query}" | jq -s -R -r @uri)"
+  # Display search results in web browser
+  # shellcheck disable=SC2154
+  ${DMBROWSER} "${url}${query}" &
+}
+
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main "$@"
+

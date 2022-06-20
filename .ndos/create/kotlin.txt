@@ -1,0 +1,22 @@
+// ===> Package name
+package <org.your.package.name>
+
+// ===> Imports & Libraries
+
+
+// ===> Constants & Global Variables
+// <Variable description>
+
+
+
+// ===> Functions & Classes
+// <Function description>
+
+
+
+// ===> Main Function
+// <main -> <your description>
+fun main() {
+    // your code
+
+}

@@ -1,0 +1,19 @@
+#!/bin/bash
+# ===> Main Function
+# <main -> <your description>
+main() {
+    layout=$(echo -e "Tall\nReversed tall\nWide\nReversed wide\nGrid\nReversed grid\nEven\nTiled\nMonocle\nHelp" | dmenu -l 10 -i -p "Select layout: ")
+    case $layout in
+        Help)             alacritty -e layouts ;;
+        Tall)             bsp-layout set tall ;;
+        "Reversed tall")  bsp-layout set rtall ;;
+        Wide)             bsp-layout set wide ;;
+        "Reversed wide")  bsp-layout set rwide ;;
+        Grid)             bsp-layout set grid ;;
+        "Reversed grid")  bsp-layout set rgrid ;;
+        Even)             bsp-layout set even ;;
+        Tiled)            bsp-layout set tiled ;;
+        Monocle)          bsp-layout set monocle
+    esac
+}
+main
